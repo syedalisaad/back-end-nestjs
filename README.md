@@ -1,98 +1,91 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Employee Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A simple REST API for managing employees, built with [NestJS](https://nestjs.com/), [TypeORM](https://typeorm.io/), and MySQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- CRUD operations for employees.
+- Built with TypeScript for type safety.
+- Database migrations handled by TypeORM.
+- API documentation with Swagger.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Getting Started
 
-## Project setup
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-```bash
-$ npm install
-```
+### Prerequisites
 
-## Compile and run the project
+- [Node.js](https://nodejs.org/) (version 20 or higher recommended)
+- [npm](https://www.npmjs.com/)
+- A running [MySQL](https://www.mysql.com/) database instance
 
-```bash
-# development
-$ npm run start
+### Installation and Setup
 
-# watch mode
-$ npm run start:dev
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd back-end-nestjs
+    ```
 
-# production mode
-$ npm run start:prod
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Run tests
+3.  **Set up environment variables:**
+    Copy the example environment file and update it with your database credentials.
+    ```bash
+    cp .env.example .env
+    ```
+    Open the `.env` file and fill in your `DB_HOST`, `DB_PORT`, `DB_USERNAME`, `DB_PASSWORD`, and `DB_NAME`.
 
-```bash
-# unit tests
-$ npm run test
+4.  **Create the database:**
+    Make sure you have created the database in MySQL that you specified in the `.env` file. For example:
+    ```sql
+    CREATE DATABASE employee_db;
+    ```
 
-# e2e tests
-$ npm run test:e2e
+5.  **Run database migrations:**
+    The project uses TypeORM to manage the database schema.
 
-# test coverage
-$ npm run test:cov
-```
+    First, you may need to generate a migration file based on your entities.
+    ```bash
+    # Replace 'MyMigrationName' with a descriptive name
+    npm run typeorm -- migration:generate src/migrations/MyMigrationName
+    ```
 
-## Deployment
+    Then, run the migrations to create the tables.
+    ```bash
+    npm run migration:run
+    ```
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+6.  **Start the development server:**
+    ```bash
+    npm run start:dev
+    ```
+    The application will be running on `http://localhost:4000` (or the port you specified in your `.env` file).
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+## Available Scripts
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+- `npm run start`: Starts the application in production mode.
+- `npm run start:dev`: Starts the application in development mode with file watching.
+- `npm run build`: Compiles the TypeScript code to JavaScript.
+- `npm run format`: Formats the code with Prettier.
+- `npm run lint`: Lints the code with ESLint.
+- `npm run test`: Runs unit tests.
+- `npm run migration:run`: Runs all pending database migrations.
+- `npm run migration:generate`: Generates a new migration file. (You need to provide a path and name).
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## API Endpoints
 
-## Resources
+Once the application is running, you can access the interactive API documentation (Swagger UI) at:
 
-Check out a few resources that may come in handy when working with NestJS:
+**http://localhost:4000/api/docs**
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Employee Routes
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- **`POST /api/employees`**: Create a new employee.
+- **`GET /api/employees`**: Retrieve a list of all employees.
+- **`GET /api/employees/:id`**: Retrieve a single employee by their ID.
+- **`PUT /api/employees/:id`**: Update an existing employee's details.
+- **`DELETE /api/employees/:id`**: Delete an employee.

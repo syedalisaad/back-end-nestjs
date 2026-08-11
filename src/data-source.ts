@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
   port: parseInt(process.env.DB_PORT || '3306', 10),
   username: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'ghg-global',
+  database: process.env.DB_NAME || 'employee_db',
   entities: [__dirname + '/**/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
   synchronize: false,

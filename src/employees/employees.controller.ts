@@ -1,9 +1,19 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Query,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
-
+import { PaginationQueryDto } from './dto/pagination-query.dto';
 @ApiTags('employees')
 @Controller('api/employees')
 export class EmployeesController {
@@ -21,10 +31,9 @@ export class EmployeesController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get All Employees' })
-  async findAll() {
-    const data = await this.employeesService.findAll();
-    return { data };
+  @ApiOperation({ summary: 'Get All Employees with Server-Side Pagination' })
+  async findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.employeesService.findAllPaginated(paginationQuery);
   }
 
   @Get(':id')
@@ -36,7 +45,10 @@ export class EmployeesController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Update Employee' })
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateEmployeeDto: UpdateEmployeeDto) {
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateEmployeeDto: CreateEmployeeDto,
+  ) {
     const data = await this.employeesService.update(id, updateEmployeeDto);
     return { message: 'Employee updated successfully', data };
   }
